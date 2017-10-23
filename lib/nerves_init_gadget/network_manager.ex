@@ -19,7 +19,17 @@ defmodule Nerves.InitGadget.NetworkManager do
     SystemRegistry.register()
 
     # Initialize networking
-    Nerves.Network.setup(opts.ifname, ipv4_address_method: opts.address_method)
+    # Nerves.Network.setup(opts.ifname, ipv4_address_method: opts.address_method)
+
+    Nerves.Network.setup(
+      opts.ifname,
+      ipv4_address_method: :static,
+      ipv4_address: "192.168.24.1",
+      ipv4_subnet_mask: "255.255.0.0",
+      domain: "nerves.local"
+    )
+    
+
     init_mdns(opts.mdns_domain)
     init_net_kernel(opts)
 

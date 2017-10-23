@@ -2,7 +2,7 @@ defmodule Nerves.InitGadget.Options do
   @moduledoc false
 
   defstruct ifname: "usb0",
-            address_method: :linklocal,
+            address_method: :static,
             mdns_domain: "nerves.local",
             node_name: nil,
             node_host: :mdns_domain
