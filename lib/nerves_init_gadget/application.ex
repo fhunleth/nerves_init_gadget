@@ -12,7 +12,7 @@ defmodule Nerves.InitGadget.Application do
     # Define workers and child supervisors to be supervised
     children = [
       worker(Nerves.InitGadget.NetworkManager, [merged_opts]),
-      worker(DHCPServer, [[interface: merged_opts.ifname]])
+      worker(DHCPServer, [merged_opts.ifname, []])
     ]
 
     opts = [strategy: :one_for_one, name: Nerves.InitGadget.Supervisor]
