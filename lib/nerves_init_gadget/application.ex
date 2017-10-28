@@ -17,7 +17,7 @@ defmodule Nerves.InitGadget.Application do
           worker(DHCPServer, [merged_opts.ifname, []])
         ]
       # if link local, no dhcp server is needed.
-      %{address_method: :link_local} ->
+      %{address_method: :linklocal} ->
         [
           worker(Nerves.InitGadget.NetworkManager, [merged_opts]),
         ]

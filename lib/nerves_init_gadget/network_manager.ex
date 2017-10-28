@@ -30,7 +30,7 @@ defmodule Nerves.InitGadget.NetworkManager do
           domain: opts.mdns_domain
         )
       # If link local, setup link local.
-      %{address_method: :link_local} ->
+      %{address_method: :linklocal} ->
         Nerves.Network.setup(opts.ifname, ipv4_address_method: opts.address_method)
 
     end
