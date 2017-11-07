@@ -1,4 +1,4 @@
-%{"dhcp_server": {:git, "https://github.com/nerves-project/dhcp_server.git", "b67dad32781c08c75580e250fd14068d36ab8053", [branch: "elixirize-go!"]},
+%{"dhcp_server": {:git, "https://github.com/nerves-project/dhcp_server.git", "be71db6dbb959179b748fc88d43ae2ba7217f6a7", [branch: "elixirize-go!"]},
   "dns": {:hex, :dns, "1.0.1", "1d88187fdf564d937cee202949141090707fd0c9d7fcae903a6878ef24ef5d1e", [:mix], [{:socket, "~> 0.3.12", [hex: :socket, repo: "hexpm", optional: false]}], "hexpm"},
   "earmark": {:hex, :earmark, "1.2.3", "206eb2e2ac1a794aa5256f3982de7a76bf4579ff91cb28d0e17ea2c9491e46a4", [:mix], [], "hexpm"},
   "elixir_make": {:hex, :elixir_make, "0.4.0", "992f38fabe705bb45821a728f20914c554b276838433349d4f2341f7a687cddf", [:mix], [], "hexpm"},
