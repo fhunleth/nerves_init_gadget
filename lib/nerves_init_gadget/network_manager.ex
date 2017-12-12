@@ -19,7 +19,23 @@ defmodule Nerves.InitGadget.NetworkManager do
     SystemRegistry.register()
 
     # Initialize networking
-    Nerves.Network.setup(opts.ifname, ipv4_address_method: opts.address_method)
+    case opts do
+      # if address method is static, setup static addressing.
+      %{address_method: :static} ->
+        Nerves.Network.setup(
+          opts.ifname,
+          ipv4_address_method: :static,
+          ipv4_address: opts.ip_address || "192.168.24.1",
+          ipv4_subnet_mask: opts.ip_subnet_mask || "255.255.0.0",
+          lease_file: "/root/#{opts.ifname}_dhcp_leases.dets",
+          domain: opts.mdns_domain
+        )
+      # If link local, setup link local.
+      %{address_method: :linklocal} ->
+        Nerves.Network.setup(opts.ifname, ipv4_address_method: opts.address_method)
+
+    end
+
     init_mdns(opts.mdns_domain)
     init_net_kernel(opts)
 

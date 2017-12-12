@@ -251,9 +251,17 @@ details.
 
 #### `:address_method`
 
-This sets how an IP address should be assigned to the network interface. If
-using anything but `:linklocal` and `:dhcp`, you'll need to configure defaults
-on `nerves_network` to set other parameters.
+Defaults to `:link_local`. Can be configured to `:static` to use a dhcp server
+instead of `:link_local` ip adressing.
+This allows for additional configuration. See below.
+
+### `:ip_address`
+This will be the ip address of the device when `:address_method` is configured
+to `:static`. Defaults to `"192.168.24.1"`
+
+### `:ip_subnet_mask`
+This will be the ip address of the device when `:address_method` is configured
+to `:static`. Defaults to `"255.255.0.0"`
 
 #### `:mdns_domain`
 
