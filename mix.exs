@@ -42,7 +42,7 @@ defmodule Nerves.InitGadget.Mixfile do
       {:nerves_runtime, "~> 0.3"},
       {:nerves_network, "~> 0.3"},
       {:nerves_firmware_ssh, "~> 0.2"},
-      {:dhcp_server, github: "nerves-project/dhcp_server", branch: "elixirize-go!"},
+      {:dhcp_server, "~> 0.3.0"},
       {:mdns, "~> 0.1"},
       {:ex_doc, "~> 0.11", only: :dev}
     ]
