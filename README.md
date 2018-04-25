@@ -18,6 +18,7 @@ code. Here's a summary of what you get:
 * Over-the-air firmware updates using `nerves_firmware_ssh`
 * Easy setup of Erlang distribution to support remsh, Observer and other debug
   and tracing tools
+* A ssh IEx console.
 * IEx helpers for a happier commandline experience
 * Logging via [ring_logger](https://github.com/nerves-project/ring_logger)
 * [shoehorn](https://github.com/nerves-project/shoehorn)-aware instructions to
@@ -308,6 +309,20 @@ The default is `:mdns_domain` so that the following remsh invocation works:
 
 ```bash
 iex --name me@0.0.0.0 --cookie acookie --remsh node_name@nerves.local
+```
+
+### `:ssh_console_port`
+
+If specified (non-nil), Start an IEx console on a ssh port. This console will
+use the same keys configured with `:nerves_firmware_ssh`.
+You can connect by doing the following:
+```bash
+ssh nerves.local
+```
+
+To exit you will have to do:
+```elixir
+Nerves.InitGadget.SSHConsole.shell_exit()
 ```
 
 ## Troubleshooting

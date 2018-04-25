@@ -5,5 +5,7 @@ defmodule Nerves.InitGadget.Options do
             address_method: :linklocal,
             mdns_domain: "nerves.local",
             node_name: nil,
-            node_host: :mdns_domain
+            node_host: :mdns_domain,
+            ssh_console: false,
+            ssh_console_port: 22
 end
