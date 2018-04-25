@@ -358,7 +358,7 @@ cookie from `rel/vm.args` (look for the `-setcookie` line) and run the following
 to connect to your device:
 
 ```bash
-iex --name me@0.0.0.0 --cookie acookie --remsh murphy@nerves.local
+iex --name me@127.0.0.1 --cookie acookie --remsh murphy@nerves.local
 ```
 
 ### Why do I see `x\360~` when I reboot
