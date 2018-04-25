@@ -37,6 +37,9 @@ defmodule Nerves.InitGadget.SSHConsole do
   end
 
   defp start_ssh(%{ssh_console_port: port}) do
+    # here we share the keys with `nerves_firmware_ssh`
+    # This allows for the end user to only have to configure ssh keys
+    # in one config.exs entry.
     authorized_keys =
       Application.get_env(:nerves_firmware_ssh, :authorized_keys, [])
       |> Enum.join("\n")
@@ -45,6 +48,8 @@ defmodule Nerves.InitGadget.SSHConsole do
 
     cb_opts = [authorized_keys: decoded_authorized_keys]
 
+    # here we also share system_dir to allow for auth to work with
+    # the shared keys.
     {:ok, ssh} =
       :ssh.daemon(port, [
         {:id_string, :random},

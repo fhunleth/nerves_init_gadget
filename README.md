@@ -18,7 +18,7 @@ code. Here's a summary of what you get:
 * Over-the-air firmware updates using `nerves_firmware_ssh`
 * Easy setup of Erlang distribution to support remsh, Observer and other debug
   and tracing tools
-* A ssh IEx console.
+* Access to the IEx console via ssh
 * IEx helpers for a happier commandline experience
 * Logging via [ring_logger](https://github.com/nerves-project/ring_logger)
 * [shoehorn](https://github.com/nerves-project/shoehorn)-aware instructions to
@@ -313,9 +313,10 @@ iex --name me@0.0.0.0 --cookie acookie --remsh node_name@nerves.local
 
 ### `:ssh_console_port`
 
-If specified (non-nil), Start an IEx console on a ssh port. This console will
+If specified (non-nil), start an IEx console on a ssh port. This console will
 use the same keys configured with `:nerves_firmware_ssh`.
-You can connect by doing the following:
+You can connect by setting `ssh_console_port: 22` and then run:
+
 ```bash
 ssh nerves.local
 ```
