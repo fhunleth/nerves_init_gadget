@@ -321,10 +321,9 @@ You can connect by setting `ssh_console_port: 22` and then run:
 ssh nerves.local
 ```
 
-To exit you will have to do:
-```elixir
-Nerves.InitGadget.SSHConsole.shell_exit()
-```
+By default, Nerves cathes the `CTRL-C` signal. This means you will not be able to
+exit an SSH session using that. Instead you should use `~.`.
+See the [ssh man page](https://linux.die.net/man/1/ssh) for more details.
 
 ## Troubleshooting
 
