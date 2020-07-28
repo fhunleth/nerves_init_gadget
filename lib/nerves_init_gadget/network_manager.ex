@@ -131,12 +131,76 @@ defmodule Nerves.InitGadget.NetworkManager do
   defp init_mdns(state, %{mdns_domain: nil}), do: state
 
   defp init_mdns(state, opts) do
-    Mdns.Server.add_service(%Mdns.Server.Service{
-      domain: resolve_mdns_name(opts.mdns_domain),
-      data: :ip,
-      ttl: 120,
-      type: :a
-    })
+    [
+      # resolve ip for domain
+      %Mdns.Server.Service{
+        domain: resolve_mdns_name(opts.mdns_domain),
+        data: :ip,
+        ttl: opts.mdns_ttl,
+        type: :a
+      },
+
+      # ssh service
+      %Mdns.Server.Service{
+        domain: "_services._dns-sd._udp.local",
+        data: "_ssh._tcp.local",
+        ttl: opts.mdns_ttl,
+        type: :ptr
+      },
+      %Mdns.Server.Service{
+        domain: "_ssh._tcp.local",
+        data: "#{mdns_discovery_name(opts)}._ssh._tcp.local",
+        ttl: opts.mdns_ttl,
+        type: :ptr
+      },
+      %Mdns.Server.Service{
+        domain: "#{mdns_discovery_name(opts)}._ssh._tcp.local",
+        data:
+          {0, 0, opts.ssh_console_port,
+           opts.mdns_domain
+           |> resolve_mdns_name()
+           |> :erlang.binary_to_list()},
+        ttl: opts.mdns_ttl,
+        type: :srv
+      },
+      %Mdns.Server.Service{
+        domain: "#{mdns_discovery_name(opts)}._ssh._tcp.local",
+        data: [],
+        ttl: opts.mdns_ttl,
+        type: :txt
+      },
+
+      # sftp service
+      %Mdns.Server.Service{
+        domain: "_services._dns-sd._udp.local",
+        data: "_sftp-ssh._tcp.local",
+        ttl: opts.mdns_ttl,
+        type: :ptr
+      },
+      %Mdns.Server.Service{
+        domain: "_sftp-ssh._tcp.local",
+        data: "#{mdns_discovery_name(opts)}._sftp-ssh._tcp.local",
+        ttl: opts.mdns_ttl,
+        type: :ptr
+      },
+      %Mdns.Server.Service{
+        domain: "#{mdns_discovery_name(opts)}._sftp-ssh._tcp.local",
+        data:
+          {0, 0, opts.ssh_console_port,
+           opts.mdns_domain
+           |> resolve_mdns_name()
+           |> :erlang.binary_to_list()},
+        ttl: opts.mdns_ttl,
+        type: :srv
+      },
+      %Mdns.Server.Service{
+        domain: "#{mdns_discovery_name(opts)}._sftp-ssh._tcp.local",
+        data: [],
+        ttl: opts.mdns_ttl,
+        type: :txt
+      }
+    ]
+    |> Enum.each(&Mdns.Server.add_service/1)
 
     state
   end
@@ -150,6 +214,12 @@ defmodule Nerves.InitGadget.NetworkManager do
   end
 
   defp resolve_mdns_name(mdns_name), do: mdns_name
+
+  defp mdns_discovery_name(opts) do
+    "#{opts.mdns_name} (#{resolve_mdns_name(opts.mdns_domain)})"
+    |> String.replace(".local", "")
+    |> String.replace(".", "_")
+  end
 
   defp to_atom(value) when is_atom(value), do: value
   defp to_atom(value) when is_binary(value), do: String.to_atom(value)

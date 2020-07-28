@@ -265,6 +265,7 @@ You may customize `nerves_init_gadget` using your `config.exs`:
 config :nerves_init_gadget,
   ifname: "usb0",
   address_method: :dhcpd,
+  mdns_name: "Nerves Gadget",
   mdns_domain: "nerves.local",
   node_name: nil,
   node_host: :mdns_domain
@@ -297,6 +298,12 @@ specify the following:
   Erlang's DNS so that you can refer to the computer on the other side of the link
   as `peer.usb0.lan`. Substitute `usb0` for the interface if yours is different.
   See [OneDHCPD](https://github.com/fhunleth/one_dhcpd).
+
+### `:mdns_name`
+
+This is the device name for mDNS discovery service. It defaults to `Nerves Gadget`.
+
+Your device will be discovered as "Nerves Gadget (nerves)". There is a domain name in parenthesis.
 
 ### `:mdns_domain`
 
